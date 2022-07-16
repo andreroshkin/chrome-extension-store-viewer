@@ -1,6 +1,5 @@
 chrome.extension.onConnect.addListener(function (port) {
     const extensionListener = function (message, sender, sendResponse) {
-        console.log("message", message);
         if (message.tabId && message.content) {
             if (message.action === "code") {
                 chrome.tabs.executeScript(message.tabId, {

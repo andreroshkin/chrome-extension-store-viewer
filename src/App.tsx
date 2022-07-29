@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import PropertyItem from "./components/PropertyItem";
+import ActionItem from "./components/ActionItem";
 import "./App.css";
 
 function sendObjectToInspectedPage(message) {
@@ -6,35 +8,9 @@ function sendObjectToInspectedPage(message) {
     chrome.runtime.sendMessage(message);
 }
 
-function PropertyItem(props) {
-    const [isShow, setIsShow] = useState(false);
-
-    function handleToggle() {
-        setIsShow(!isShow);
-    }
-
-    return (
-        <div className="property">
-            <div className="property__key" onClick={handleToggle}>
-                {props.changes[props.changeKey].key}
-            </div>
-            {isShow ? (
-                <div className="property__state">
-                    <pre>
-                        {JSON.stringify(
-                            props.changes[props.changeKey].state,
-                            null,
-                            2
-                        )}
-                    </pre>
-                </div>
-            ) : null}
-        </div>
-    );
-}
-
 function App() {
     const [changes, setСhanges] = useState({});
+    const [actions, setActions] = useState([]);
 
     function createChannel() {
         const port = chrome.runtime.connect({
@@ -43,6 +19,10 @@ function App() {
 
         port.onMessage.addListener(function (message) {
             const updatedProperty = { [message.content.key]: message.content };
+            setActions((actions) => ([
+                ...actions,
+                updatedProperty,
+            ]));
             setСhanges((changes) => ({
                 ...changes,
                 ...updatedProperty,
@@ -80,6 +60,12 @@ function App() {
                             key={changes[changeKey].key}
                             changeKey={changeKey}
                             changes={changes}
+                        />
+                    ))}
+                    {actions.map((action) => (
+                        <ActionItem
+                            key={action.key}
+                            action={action}
                         />
                     ))}
                 </div>

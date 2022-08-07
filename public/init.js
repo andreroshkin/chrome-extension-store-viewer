@@ -4,12 +4,13 @@ function sendObjectToDevTools(message) {
 
 function inserted() {
     document.addEventListener("stateChange", function (event) {
-        sendObjectToDevTools({
+        const message = {
             content: {
                 key: event?.detail?.key,
-                state: event?.detail?.state,
+                stateByKey: event?.detail.stateByKey,
             },
-        });
+        }
+        sendObjectToDevTools(message);
     });
 }
 inserted();

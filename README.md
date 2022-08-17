@@ -2,5 +2,6 @@
 Store viewer
 
 ## TODO																				
-- [ ]  Pretty view object
+- [x]  Pretty view object
 - [ ]  Copy value button
+- [ ]  Filter action

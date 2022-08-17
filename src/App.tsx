@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import PropertyItem from "./components/PropertyItem";
-import ActionItem from "./components/ActionItem";
+import ActionItem from "./components/actionItem/ActionItem";
 import "./App.css";
+import ActionTree from "./components/actionTree/ActionTree";
 
 function sendObjectToInspectedPage(message) {
     message.tabId = chrome.devtools.inspectedWindow.tabId;
@@ -9,7 +9,6 @@ function sendObjectToInspectedPage(message) {
 }
 
 function App() {
-    const [changes, setСhanges] = useState({});
     const [actions, setActions] = useState([]);
 
     function createChannel() {
@@ -18,20 +17,19 @@ function App() {
         });
 
         port.onMessage.addListener(function (message) {
-            const updatedProperty = { [message.content.key]: message.content };
+            const updatedProperty = { 
+                key: [message.content.key],
+                value: message.content.stateByKey 
+            };
             setActions((actions) => ([
                 ...actions,
                 updatedProperty,
             ]));
-            setСhanges((changes) => ({
-                ...changes,
-                ...updatedProperty,
-            }));
         });
     }
 
     function resetChanges() {
-        setСhanges({});
+        setActions([]);
     }
 
     useEffect(() => {
@@ -55,13 +53,6 @@ function App() {
 
             <div className="viewer-content">
                 <div className="viewer-content__sidebar">
-                    {Object.keys(changes).map((changeKey) => (
-                        <PropertyItem
-                            key={changes[changeKey].key}
-                            changeKey={changeKey}
-                            changes={changes}
-                        />
-                    ))}
                     {actions.map((action) => (
                         <ActionItem
                             key={action.key}
@@ -69,7 +60,9 @@ function App() {
                         />
                     ))}
                 </div>
-                <div className="viewer-content__content"></div>
+                <div className="viewer-content__content">
+                    <ActionTree/>
+                </div>
             </div>
         </div>
     );

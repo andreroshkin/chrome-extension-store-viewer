@@ -1,8 +1,28 @@
-.property {
+.action {
     border: 1px solid #ccc;
 }
 
-.property__key {
+.action__key {
     font-weight: bold;
     cursor: pointer;
+    padding: 5px;
+}
+
+.viewer-content {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    grid-template-areas: "sidebar content";
+    grid-gap: 30px;
+}
+
+.viewer-content__sidebar {
+    grid-area: sidebar;
+    margin-inline-end: 15px;
+    position: relative;
+    max-height: 400px;
+    overflow: scroll;
+}
+
+.viewer-content__content {
+    grid-area: content;
 }

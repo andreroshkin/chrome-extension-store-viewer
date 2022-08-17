@@ -20,7 +20,7 @@ jobs:
         uses: thedoctor0/zip-release@main
         with:
           type: 'zip'
-          directory: '/build'
+          directory: 'build/'
           filename: 'build.zip'
           exclusions: '*.git* /*node_modules/*'
 

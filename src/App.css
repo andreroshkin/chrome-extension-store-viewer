@@ -11,20 +11,19 @@
     grid-template-columns: 400px 1fr;
     grid-template-areas: "sidebar content";
     grid-gap: 30px;
+    height: 100vh;
 }
 
 .viewer-content__sidebar {
     grid-area: sidebar;
     margin-inline-end: 15px;
     position: relative;
-    height: 400px;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .viewer-content__content {
     grid-area: content;
-    height: 400px;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .action {

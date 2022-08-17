@@ -1,0 +1,37 @@
+name: Build new release
+on:
+  push:
+    tags:
+      - 'v*'
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build extension
+        run: npm run build
+
+      - name: Archive build
+        uses: thedoctor0/zip-release@main
+        with:
+          type: 'zip'
+          directory: '/build'
+          filename: 'build.zip'
+          exclusions: '*.git* /*node_modules/*'
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Build ${{ github.ref }}
+          artifacts: "release.tar.gz,foo/*.txt"
+          draft: false
+          prerelease: false

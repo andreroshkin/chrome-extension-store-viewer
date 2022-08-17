@@ -25,13 +25,7 @@ jobs:
           exclusions: '*.git* /*node_modules/*'
 
       - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Build ${{ github.ref }}
-          artifacts: "release.tar.gz,foo/*.txt"
-          draft: false
-          prerelease: false
+          files: build.zip

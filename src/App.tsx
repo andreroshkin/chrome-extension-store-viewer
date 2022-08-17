@@ -17,9 +17,12 @@ function App() {
         });
 
         port.onMessage.addListener(function (message) {
+            const value = message.content.stateByKey ? JSON.parse(message.content.stateByKey) : null;
+
             const updatedProperty = { 
                 key: [message.content.key],
-                value: message.content.stateByKey 
+                value,
+                timestamp: new Date().toLocaleTimeString() 
             };
             setActions((actions) => ([
                 ...actions,

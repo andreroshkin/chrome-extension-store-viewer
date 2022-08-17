@@ -8,9 +8,12 @@ function ActionItem(props) {
     }
 
     return (
-        <div className="action">
-            <div className="action__key" onClick={handleToggle}>
+        <div className="action" onClick={handleToggle}>
+            <div className="action__key">
                 {props.action.key}
+            </div>
+            <div className="action__timestamp">
+                {props.action.timestamp}
             </div>
         </div>
     );

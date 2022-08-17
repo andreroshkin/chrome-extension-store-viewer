@@ -1,10 +1,8 @@
-.action {
-    border: 1px solid #ccc;
+.viewer {
+    background-color: rgb(255, 255, 250);
 }
 
-.action__key {
-    font-weight: bold;
-    cursor: pointer;
+.viewer-controls {
     padding: 5px;
 }
 
@@ -19,10 +17,26 @@
     grid-area: sidebar;
     margin-inline-end: 15px;
     position: relative;
-    max-height: 400px;
+    height: 400px;
     overflow: scroll;
 }
 
 .viewer-content__content {
     grid-area: content;
+    height: 400px;
+    overflow: scroll;
+}
+
+.action {
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    align-items: center;
+}
+
+.action__key {
+    font-weight: bold;
+    cursor: pointer;
+    padding: 5px;
 }

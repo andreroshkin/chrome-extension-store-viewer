@@ -7,3 +7,4 @@ Download build.zip in latest release, unzip and go to page [chrome://extensions/
 - [x]  Pretty view object
 - [ ]  Copy value button
 - [ ]  Filter action
+- [ ]  output Set values
